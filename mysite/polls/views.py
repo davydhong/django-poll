@@ -19,10 +19,13 @@ def index(request):
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
+    # NOTE: Typically django determines the appropriate name but we are overriding it using context_object_name
 
     def get_queryset(self):
-        """Return the last five published questions"""
-        return Question.objects.order_by('-pub_date')[:5]
+        """
+        Return the last five published questions (not including those set to  published in the future).
+        """
+        return Question.objects.filter(pub_date_lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 """

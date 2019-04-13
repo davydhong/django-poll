@@ -11,6 +11,11 @@ class Question(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
+    # NOTE: improving was_published_recently representation on the adminpage
+    was_published_recently.admin_order_field = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently'
+
     def __str__(self):
         return self.question_text
 
@@ -22,7 +27,7 @@ class Choice(models.Model):
 
     def __str__(self):
         """
-            NOTE
-            It’s important to add __str__() methods to your models, not only for your own convenience when dealing with the interactive prompt, but also because objects’ representations are used throughout Django’s automatically-generated admin.
+        NOTE
+        It’s important to add __str__() methods to your models, not only for your own convenience when dealing with the interactive prompt, but also because objects’ representations are used throughout Django’s automatically-generated admin.
         """
         return self.choice_text

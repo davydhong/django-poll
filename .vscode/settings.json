@@ -1,0 +1,4 @@
+{
+  "python.linting.pylintEnabled": true,
+  "python.pythonPath": "/Users/davidhong/.local/share/virtualenvs/django-poll-kmckrie8/bin/python"
+}

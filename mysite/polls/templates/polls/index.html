@@ -1,0 +1,18 @@
+{% if latest_question_list %}
+<ul>
+  {% for question in latest_question_list %}
+  {% comment %}
+  <li><a href="{% url 'detail' question.id %}">
+      {{question.question_text}}
+    </a></li>
+  NOTE: The problem with this hardcoded, tightly-coupled approach is that it becomes challenging to change URLs on projects with a lot of templates. However, since you defined the name argument in the
+  path() functions in the polls.urls module, you can remove a reliance on specific URL paths defined in your url configurations by using the {% url %} template tag:
+  {% endcomment %}
+  <li><a href="{% url 'polls:detail' question.id %}">
+      {{ question.question_text }}
+    </a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available</p>
+{% endif %}

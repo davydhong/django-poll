@@ -81,7 +81,3 @@ def vote(request, question_id):
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
         # NOTE: reverse() helps avoid having to hardcode a URL in the view function. It is given the name of the view that we want to pass control to and the variable portion of the URL pattern that points to that view. In this case, using the URLconf we set up in Tutorial 3, this reverse() call will return a string like
-
-
-class IndexView(TemplateView):
-    pass

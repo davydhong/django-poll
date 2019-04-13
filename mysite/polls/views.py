@@ -6,6 +6,8 @@ from django.views import generic
 
 from .models import Question, Choice
 
+from django.utils import timezone
+
 """
 NOTE: this is functional way
 def index(request):
@@ -25,7 +27,7 @@ class IndexView(generic.ListView):
         """
         Return the last five published questions (not including those set to  published in the future).
         """
-        return Question.objects.filter(pub_date_lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 """
@@ -49,6 +51,12 @@ def detail(request, question_id):
 class DetailView(generic.DeleteView):
     model = Question
     template_name = 'polls/detail.html'
+
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 """
